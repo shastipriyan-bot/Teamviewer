@@ -1,0 +1,77 @@
+html {
+ box-sizing: border-box;
+}
+
+*,
+*:after,
+*::before {
+ box-sizing: inherit;
+}
+
+.fw-widget-wrapper {
+ display: flex;
+ flex-flow: column wrap;
+ justify-content: center;
+ align-items: center;
+}
+
+.mt {
+ margin-top: 10px;
+}
+
+.ml {
+ margin-left: -16%;
+}
+
+.wd {
+ width: 48%;
+}
+
+.redColor {
+ color: #ff5959;
+}
+
+.greenColor {
+ color: green;
+}
+
+.fw-widget-wrapper {
+ display: flex;
+ flex-flow: column wrap;
+ justify-content: center;
+ align-items: center;
+ align-content: flex-start;
+}
+
+.btn {
+ background-color: #264966 !important;
+ border: 1px solid #12344d;
+ color: #fff !important;
+}
+
+.wd56 {
+ width: 100%;
+ font-size: x-small;
+}
+
+.wd50 {
+ width: 50%;
+ font-size: x-small;
+}
+
+.loader {
+ left: 50%;
+ margin-left: 7em;
+}
+
+.smallSize {
+ font-size: small;
+}
+
+.smallestSize {
+ font-size: xx-small;
+}
+
+.right-side {
+ float: right;
+}

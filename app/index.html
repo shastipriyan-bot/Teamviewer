@@ -1,0 +1,104 @@
+<html>
+ <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <!-- <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script> -->
+  <script src="https://cdn.freshdev.io/assets/app-client@2.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  <script src="https://rawgit.com/moment/moment/2.29.1/min/moment.min.js"></script>
+  <link
+   rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+  />
+  <link
+   rel="stylesheet"
+   type="text/css"
+   href="https://static.freshdev.io/fdk/2.0/assets/freshdesk.css"
+  />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+ </head>
+
+ <body>
+  <div class="fw-widget-wrapper">
+   <div>
+    <div class="redColor" id="errorMsg"></div>
+    <div class="loader" id="loading">
+     <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <div id="sessionCreate">
+     <div>
+      <button id="genarator" class="btn generate mt wd56">
+       New Remote Support Session
+      </button>
+      <button id="arrgenarator" class="btn arrgenerate mt wd56">
+       New Assist AR Session
+      </button>
+      <button id="sessionData" class="btn mt wd56" disabled="true">
+       Get TeamViewer Session Details
+      </button>
+      <div id="sessionError"></div>
+      <button id="assetData" class="btn mt wd56">
+       Get Unattended Device List
+      </button>
+      <div id="assetError"></div>
+      <div class="mt" id="assetList">
+       <i
+        class="fa fa-refresh right-side"
+        aria-hidden="true"
+        id="refreshList"
+       ></i>
+       <div id="assetLists"></div>
+      </div>
+      <div>
+       <div id="sessionCode" hidden></div>
+      </div>
+     </div>
+    </div>
+    <div id="sessionDetails" class="wd56">
+     <div>
+      <button id="regenarator" class="btn generate mt wd56">
+       Regenerate Remote Support Session
+      </button>
+     </div>
+     <div id="smsDetails">
+      <label
+       >Mobile Number<span class="smallestSize">
+        (ex: Countrycode+Number)</span
+       ></label
+      >
+      <input
+       type="text"
+       id="mobile"
+       class="wd"
+       title="Provide mobile number with country code"
+      />
+      <button id="sms" class="btn wd50">Send Invite</button>
+      <div id="mobileError"></div>
+     </div>
+     <div>
+      <button id="arregenarator" class="btn arrgenerate mt wd56">
+       Regenerate Assist AR Session
+      </button>
+     </div>
+     <div>
+      <button id="back" class="btn mt wd56">Cancel Session Invite</button>
+     </div>
+     <div class="mt">
+      A TeamViewer support session has been created: <span id="sData"></span>
+     </div>
+     <div id="support_link" class="mt smallSize"></div>
+    </div>
+    <div class="mt" id="console">
+     <i class="fa fa-external-link"></i>
+     <a
+      href="https://login.teamviewer.com/LogOn"
+      target="_blank"
+      rel="noreferrer"
+      >Go To TeamViewer Management Console
+     </a>
+    </div>
+   </div>
+  </div>
+ </body>
+ <script src="scripts/app.js"></script>
+ <!-- <script src="scripts/getAssetInTeamviewer.js"></script> -->
+</html>

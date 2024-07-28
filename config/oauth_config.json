@@ -1,0 +1,10 @@
+{
+  "client_id": "502116-tiu4fyRDdfTuhfyA4rx0",
+  "client_secret": "ALItgEZswp0uZwT3tKaK",
+  "authorize_url": "https://login.teamviewer.com/oauth2/authorize",
+  "token_url": "https://webapi.teamviewer.com/api/v1/oauth2/token",
+  "options": {
+    "display": "popup"
+  },
+  "token_type": "agent"
+}

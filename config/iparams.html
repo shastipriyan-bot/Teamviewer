@@ -1,0 +1,201 @@
+<html>
+ <head>
+  <link
+   rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"
+  />
+  <link
+   href="https://select2.github.io/select2/select2-3.5.3/select2.css?ts=2015-08-29T20%3A09%3A48%2B00%3A00"
+   rel="stylesheet"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <!-- <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script> -->
+  <script src="https://cdn.freshdev.io/assets/app-client@2.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+  <script src="https://select2.github.io/select2/select2-3.5.3/select2.js?ts=2015-08-29T20%3A09%3A48%2B00%3A00"></script>
+  <link rel="stylesheet" href="./assets/iparams.css" />
+ </head>
+
+ <body>
+  <div class="fdsettings">
+   <div class="form-group" id="apiUrldiv">
+    <label for="fdUrl" class="fbold"
+     >Domain URL<span class="star"> *</span></label
+    >
+    <input type="text" id="fdUrl" class="form-control fct" name="fdUrl" />
+    <span
+     >Please enter your Freshservice account domain URL Ex:
+     example.freshservice.com</span
+    >
+    <div id="error_url_div" class="star"></div>
+   </div>
+   <div class="form-group" id="apikeydiv">
+    <label for="txtApiKey" class="fbold"
+     >API Key<span class="star"> *</span></label
+    >
+    <input
+     type="text"
+     id="txtApiKey"
+     class="form-control fct"
+     name="txtApiKey"
+    />
+    <span
+     >Please enter your Freshservice API Key.
+     <a
+      href="https://support.freshservice.com/en/support/solutions/articles/50000000306-where-do-i-find-my-api-key-"
+      target="_blank"
+      >Trouble finding API key?</a
+     ></span
+    >
+    <div id="error_div" class="star"></div>
+   </div>
+   <button type="button" class="btn btn-primary" id="btnNext">
+    AUTHENTICATE
+   </button>
+  </div>
+  <div id="assetAccess" class="mt">
+   <label>
+    Remotely access unattended devices
+    <input id="accessCheckbox" type="checkbox" />
+   </label>
+  </div>
+  <script type="text/javascript">
+   var updateConfigs;
+
+   app.initialized().then(function (client) {
+    window.client = client;
+    $('#assetAccess').hide();
+    $('#btnNext').click(function () {
+     $(this).prop('disabled', true);
+     $('#error_div,#error_url_div').empty();
+     $('#btnNext').text('AUTHENTICATING...');
+     var fd_url = $('#fdUrl').val().trim();
+     var api_key = $('#txtApiKey').val().trim();
+     if (api_key.length !== 0 && fd_url.length !== 0) {
+      check(fd_url, api_key);
+     } else {
+      validateError(fd_url, api_key);
+     }
+    });
+   });
+
+   function check(fd_url, api_key) {
+
+
+const url = client.request.invokeTemplate("freshserviceValidation",{
+    context:{
+        domain:`${fd_url}`,
+        path:`/api/v2/ticket_form_fields`,
+        apiKey:api_key
+    }
+})
+
+
+
+
+    // const url = `https://${fd_url}/api/v2/ticket_form_fields`,
+    //  headers = {
+    //   Authorization: 'Basic ' + btoa(api_key + ':x'),
+    //   contentType: 'application/json',
+    //  },
+    //  options = {
+    //   headers: headers,
+    //  };
+    // client.request.get(url, options)
+    
+    .then(
+     function () {
+      $('#btnNext').text('AUTHENTICATED');
+      $('#assetAccess').show();
+     },
+     function (error) {
+      handleError(error);
+     }
+    );
+   }
+
+   function postConfigs() {
+    let apiKey = $('input[name=txtApiKey]').val();
+    let isDeviceAccess =
+     $("input[type='checkbox']:checked").val() !== undefined ? true : false;
+    return {
+     __meta: {
+      secure: ['apiKey'],
+     },
+     apiKey,
+     fdurl: $('#fdUrl').val(),
+     isDeviceAccess: isDeviceAccess,
+    };
+   }
+
+   function getConfigs(configs) {
+    $('input[name=txtApiKey]').val(configs.apiKey);
+    $('input[name=fdUrl]').val(configs.fdurl);
+    if (configs.isDeviceAccess) {
+     $('#accessCheckbox').prop('checked', true);
+    } else {
+     $('#accessCheckbox').prop('checked', false);
+    }
+
+    updateConfigs = configs;
+   }
+
+   $('#fdUrl,#txtApiKey').click(function () {
+    $('#error_div,#error_url_div').empty();
+   });
+
+   function validate() {
+    let isValid = true;
+    let btnName = $('#btnNext').text();
+    if (btnName !== 'AUTHENTICATED') {
+     $('#error_div').html(
+      'Please click on AUTHENTICATE button to Install/Save the app'
+     );
+     isValid = false;
+    }
+    return isValid;
+   }
+
+   function validateError(fd_url, api_key) {
+    $('#btnNext').text('AUTHENTICATE');
+    $('#btnNext').prop('disabled', false);
+    if (api_key.length === 0) {
+     $('#error_div').empty().append('<span>API Key is required</span>');
+    } else {
+     $('#error_div').empty();
+    }
+    if (fd_url.length === 0) {
+     $('#error_url_div').empty().append('<span>Domain URL is required</span>');
+    } else {
+     $('#error_url_div').empty();
+    }
+   }
+
+   function handleError(e) {
+    $('#btnNext').prop('disabled', false);
+    $('#btnNext').text('AUTHENTICATE');
+    if (e.status === 0 || e.status === 404) {
+     $('#error_url_div').html(
+      'Invalid domain URL entered, please check the field and try again'
+     );
+    } else if (e.status === 400) {
+     $('#error_div').html(
+      'Invalid input entered, please verify the fields and try again'
+     );
+    } else if (e.status === 401 || e.status === 403) {
+     $('#error_div').html(
+      'Invalid credentials were given or subscription to the service expired'
+     );
+    } else if (e.status === 504) {
+     $('#error_div').html('Timeout error while processing the request');
+    } else if (e.status === 502) {
+     $('#error_div').html('Error in establishing connection');
+    } else {
+     $('#error_div').html(
+      'Unexpected error occurred, please try after sometime'
+     );
+    }
+   }
+  </script>
+ </body>
+</html>

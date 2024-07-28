@@ -1,0 +1,18 @@
+.btn-primary {
+ color: #fff;
+ background-color: #264966 !important;
+ border-color: #12344d;
+}
+
+.star {
+ color: #ff5959;
+ font-size: 13px;
+}
+
+.fbold {
+ font-weight: bold;
+}
+
+.mt {
+ margin-top: 10px;
+}

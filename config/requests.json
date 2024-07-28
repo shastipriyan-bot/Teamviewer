@@ -1,0 +1,113 @@
+{
+    "getTicketDetailsByAPI": {
+        "schema": {
+            "protocol": "https",
+            "method": "GET",
+            "host": "<%= iparam.fdurl %>",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Basic <%= encode(iparam.apiKey) %>",
+                "Content-Type": "application/json"
+            }
+        }
+    },
+    "freshserviceValidation": {
+        "schema": {
+            "protocol": "https",
+            "method": "GET",
+            "host": "<%= context.domain %>",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Basic <%= encode(context.apiKey) %>",
+                "Content-Type": "application/json"
+            }
+        }
+    },
+    "freshservicePost": {
+        "schema": {
+            "protocol": "https",
+            "method": "POST",
+            "host": "<%= iparam.fdurl %>",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Basic <%= encode(iparam.apiKey) %>",
+                "Content-Type": "application/json"
+            }
+        }
+    },
+    "teamViewerSession": {
+        "schema": {
+            "protocol": "https",
+            "method": "POST",
+            "host": "webapi.teamviewer.com",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Bearer <%= access_token %>",
+                "Content-Type": "application/json"
+            }
+        },
+        "options": {
+            "isOAuth": true
+        }
+    },
+    "getSessionDetails": {
+        "schema": {
+            "protocol": "https",
+            "method": "GET",
+            "host": "webapi.teamviewer.com",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Bearer <%= access_token %>",
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        },
+        "options": {
+            "isOAuth": true
+        }
+    },
+    "getAssetInTeamviewer": {
+        "schema": {
+            "protocol": "https",
+            "method": "GET",
+            "host": "webapi.teamviewer.com",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Bearer <%= access_token %>",
+                "Content-Type": "application/json"
+            }
+        },
+        "options": {
+            "isOAuth": true
+        }
+    },
+    "getTeamviewerDevices": {
+        "schema": {
+            "protocol": "https",
+            "method": "GET",
+            "host": "webapi.teamviewer.com",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Bearer <%= access_token %>",
+                "Content-Type": "application/json"
+            }
+        },
+        "options": {
+            "isOAuth": true
+        }
+    },
+    "teamViewerSendSMS": {
+        "schema": {
+            "protocol": "https",
+            "method": "PUT",
+            "host": "webapi.teamviewer.com",
+            "path": "<%= context.path %>",
+            "headers": {
+                "Authorization": "Bearer <%= access_token %>",
+                "Content-Type": "application/json"
+            }
+        },
+        "options": {
+            "isOAuth": true
+        }
+    }
+}

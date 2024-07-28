@@ -1,0 +1,29 @@
+{
+  "platform-version": "2.3",
+  "product": {
+    "freshservice": {
+      "location": {
+        "ticket_sidebar": {
+          "url": "index.html",
+          "icon": "styles/images/icon.svg"
+        }
+      },
+      "requests":{
+        "getTicketDetailsByAPI":{},
+        "freshserviceValidation":{},
+        "freshservicePost":{},
+        "teamViewerSession":{},
+        "getAssetInTeamviewer":{},
+        "teamViewerSendSMS":{},
+        "getSessionDetails":{},
+        "getTeamviewerDevices":{}
+      }
+    }
+
+  },
+
+  "engines": {
+    "node": "18.19.1",
+    "fdk": "9.0.8"
+  }
+}
